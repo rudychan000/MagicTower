@@ -1,5 +1,61 @@
 # 《Developing a Java Game from Scratch》
 
+
+## Development Goals
+ **Design Inspiration**
+
+The design inspiration comes from the childhood game "Magic Tower." Before deciding on the topic, I thought of a game where players and monsters would battle each other, featuring various creatures, items, and a pixel map. Thus, I planned to develop the game in the style of "Magic Tower."
+
+ **Development Plan**
+
+The original plan was to design the entire game as an 8-level Magic Tower, where players would level up by defeating monsters and finally fight the boss on the eighth level to complete the game.
+
+However, due to the approaching deadline, only the first three levels of the map were completed, although all the features were implemented. The map design turned out to be much more complex than anticipated, so it was temporarily put on hold.
+
+As for the implementation of network communication, there wasn't a suitable way to integrate it into the original Magic Tower, so a separate scene was created to showcase the implemented communication.
+
+ **Implemented Features**
+
+- Three types of monsters: wandering randomly, chasing players within a detection range, guarding positions.
+- Three types of items: increasing attack power, increasing defense power, increasing health points.
+- Three types of keys: yellow, blue, red.
+- Doors: three colors, which can only be opened with the corresponding color keys.
+- Stairs: players can move between floors.
+- Features: save, load, multiplayer.
+- Network communication using selectors.
+- Project management using Maven.
+## Design Philosophy
+**Overall Code Design**
+
+
+  ![uml1](Report/uml1.png)
+
+  <img src="Report/uml2.png" alt="uml2" style="zoom: 33%;" />
+
+The project is mainly divided into three folders: world, screen, net, and an ApplicationMain file.
+
+- world: implements all basic elements of the game. 
+- screen: implements various game states. 
+- net: implements server and client functionalities. 
+- ApplicationMain: integrates and runs the game. 
+
+ **Design Reasons**
+
+The code is written in an object-oriented manner, with parts communicating only through information transfer, avoiding excessive coupling and the "domino effect."
+
+Both the builder and factory use static factories, eliminating the need to manage factory objects and allowing the direct invocation of static methods to obtain the corresponding objects.
+
+Thread control is managed using ExecutorService and ScheduledExecutorService. The former executes long-running threads, while the latter performs periodic screen refreshes, creature actions, and network-related threads.
+
+The save and load features are implemented by creating a serializable Archive class to save all information in the World, which is then read and stored.
+
+Network communication is achieved by having the client send operation information to the server. The server processes this information and sends a snapshot to all clients, which then directly display the snapshot.
+
+
+
+
+
+
 ## 开发目标
 
 - **设计灵感**
