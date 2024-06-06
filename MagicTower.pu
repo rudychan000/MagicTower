@@ -1,0 +1,96 @@
+@startuml
+
+class ApplicationMain
+
+package screen{
+    interface Screen
+    abstract class AbstractScreen implements Screen
+    class StartScreen extends AbstractScreen
+    class PlayScreen extends AbstractScreen
+    class DeadScreen extends AbstractScreen
+    class OptionScreen extends AbstractScreen
+    class LoadScreen extends AbstractScreen
+    class SaveScreen extends AbstractScreen
+    class HostScreen extends PlayScreen
+    class ClientScreen extends PlayScreen
+}
+
+package net{
+    class MyServer
+    class MyClient
+    class ByteUtil
+    note bottom: For ByteBuffer process
+}
+
+package world{
+
+    package creature {
+
+        class Creature
+
+        class CreatureAI
+        class PlayerAI extends CreatureAI
+        class MonsterAI extends CreatureAI
+        class DetectorAI extends MonsterAI
+        class GuardAI extends MonsterAI
+
+        class CreatureThread
+        note bottom: 每一个Creature自己活动的Thread
+
+        class CreatureFactory
+        note bottom: Static Factory
+
+        Creature *- CreatureAI
+        Creature *-- CreatureThread
+        CreatureFactory .> Creature
+    }
+
+    package tile{
+        class Tile
+        class TileFactory
+        note bottom: Static Factory
+        enum TileKind
+
+        Tile *-- TileKind
+        TileFactory .>Tile
+    }
+
+    package item{
+        class Item
+        class ItemFactory
+        note bottom: Static Factory
+        enum ItemKind
+
+        Item *-- ItemKind
+        ItemFactory .>Item
+    }
+
+    class Floor
+    class FloorBuilder
+    note bottom: Static Factory
+
+    class World
+    class WorldBuilder
+    note bottom: Static Factory
+
+    class FloorData
+    note top: 可序列化存储Floor数据
+    class Archive
+    note left: 可序列化存储World数据
+    class SnapShot
+    note bottom: 服务器发送给客户端的快照
+
+    World <.WorldBuilder
+    Floor <.FloorBuilder
+    World *-- Floor
+    FloorData .> Floor
+    Archive*-- FloorData
+
+
+}
+
+net ..> screen
+world ..> screen
+screen ..> ApplicationMain
+
+@enduml

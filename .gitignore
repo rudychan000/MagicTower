@@ -1,0 +1,5 @@
+# Ignore .vscode directory
+Code/magicTower/.vscode/
+
+# Ignore target directory
+Code/magicTower/target/
