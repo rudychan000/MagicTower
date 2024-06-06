@@ -30,9 +30,9 @@
 
 - **代码总体设计**
 
-  ![uml1](uml1.png)
+  ![uml1](Report/uml1.png)
 
-  <img src="uml2.png" alt="uml2" style="zoom: 33%;" />
+  <img src="Report/uml2.png" alt="uml2" style="zoom: 33%;" />
 
   ​	主要分为 world、screen、net三个文件夹和一个ApplicationMain文件。
 
